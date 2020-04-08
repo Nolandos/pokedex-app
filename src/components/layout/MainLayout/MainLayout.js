@@ -1,28 +1,34 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Container from '@material-ui/core/Container';
-import CardContent from '@material-ui/core/CardContent';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import Container from "@material-ui/core/Container";
+import CardContent from "@material-ui/core/CardContent";
 
 //import components
-import { Navbar } from '../../index';
+import { Navbar, SidebarDrawer } from "../../index";
 
 const MainLayout = ({ children }) => {
+  const [isOpenDrawer, setIsOpenDrawer] = useState(false);
 
-    return (
-        <Container maxWidth="lg">
-            <Navbar 
-                title="Pokedex Api"
-                search="Search pokemon..."
-            />
-            <CardContent >
-                { children }
-            </CardContent>
-       </Container>
-    )
-}
+  return (
+    <div>
+      <Navbar
+        title="Pokedex Api"
+        search="Search pokemon..."
+        setIsOpenDrawer={setIsOpenDrawer}
+      />
+      <SidebarDrawer
+        isOpenDrawer={isOpenDrawer}
+        setIsOpenDrawer={setIsOpenDrawer}
+      />
+      <Container maxWidth="lg">
+        <CardContent>{children}</CardContent>
+      </Container>
+    </div>
+  );
+};
 
 MainLayout.propTypes = {
-    children: PropTypes.node
+  children: PropTypes.node,
 };
-  
+
 export default MainLayout;

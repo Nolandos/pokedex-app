@@ -1,19 +1,19 @@
-import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import store from './redux/store';
-import ReactDOM from 'react-dom';
-import './styles/global.scss';
-import App from './App';
+import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./redux/store";
+import ReactDOM from "react-dom";
+import "./styles/global.scss";
+import App from "./App";
 
 const Root = () => (
-    <Provider store={store}>
-        <Router>
-          <React.StrictMode>
-            <App />
-          </React.StrictMode>
-        </Router>
-    </Provider> 
+  <Provider store={store}>
+    <Router>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </Router>
+  </Provider>
 );
 
-ReactDOM.render(<Root />, document.getElementById('root'));
+ReactDOM.render(<Root />, document.getElementById("root"));
