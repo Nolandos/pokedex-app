@@ -60,7 +60,11 @@ export const loadPokemonsRequest = (limit, offset) => {
         if (id >= 10 && id < 100) imageUrl = `${IMAGE_URL}0${id}.png`;
         if (id >= 100) imageUrl = `${IMAGE_URL}${id}.png`;
 
-        pokemons[id - offset - 1] = { ...pokemons[id - offset - 1], imageUrl };
+        pokemons[id - offset - 1] = {
+          ...pokemons[id - offset - 1],
+          imageUrl,
+          id,
+        };
       }
 
       const payload = {
@@ -72,6 +76,20 @@ export const loadPokemonsRequest = (limit, offset) => {
       dispatch(endRequest(requestName));
     } catch (e) {
       dispatch(errorRequest(e, requestName));
+    }
+  };
+};
+
+export const loadSinglePokemonRequest = id => {
+  return async dispatch => {
+    dispatch(startRequest(requestName));
+
+    try {
+      let res = await axios.get(`${API_URL}/pokemon/${id}`);
+      await dispatch(loadSinglePokemon(res.data));
+      dispatch(endRequest(requestName));
+    } catch (e) {
+      dispatch(errorRequest(e.message, requestName));
     }
   };
 };
