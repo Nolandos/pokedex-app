@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
 
 const useStyles = makeStyles(theme => ({
   appBar: {
-    backgroundColor: "#e74c3c",
+    backgroundColor: "#ff5a00",
   },
   root: {
     flexGrow: 1,

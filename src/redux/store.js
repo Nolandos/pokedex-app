@@ -1,17 +1,18 @@
 import { createStore, compose, applyMiddleware, combineReducers } from "redux";
-import thunk from 'redux-thunk';
+import thunk from "redux-thunk";
 
 // import reducers
-import pokemons from './pokemonsReducer';
-
+import pokemons from "./pokemonsReducer";
+import requests from "./requestsStatusReducer";
 
 // combine reducers
 const allReducers = combineReducers({
-    pokemons
+  pokemons,
+  requests,
 });
 
 //CREATE STRORE
-const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; 
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(allReducers, composeEnhancer(applyMiddleware(thunk)));
 
