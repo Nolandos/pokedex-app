@@ -12,7 +12,7 @@ const Pokemons = ({ match }) => {
   const request = useSelector(({ requests }) => requests.pokemons_request);
   const [pagination, setPagination] = useState({
     limit: 12,
-    presentPage: parseInt(match.params.page) || 1,
+    presentPage: parseInt(match.params.page) || 1
   });
 
   const count = useSelector(({ pokemons }) =>
@@ -37,7 +37,7 @@ const Pokemons = ({ match }) => {
   }, [match.params.page]);
 
   return (
-    <CardContent className="test-pokemons">
+    <CardContent className="card-content">
       {request.pending && <Loader />}
       {pokemons.length === 0 && request.pending === false && (
         <h1>Brak Pokemonów</h1>
