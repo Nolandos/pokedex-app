@@ -4,11 +4,13 @@ import thunk from "redux-thunk";
 // import reducers
 import pokemons from "./pokemonsReducer";
 import requests from "./requestsStatusReducer";
+import filters from "./filtersReducer";
 
 // combine reducers
 const allReducers = combineReducers({
   pokemons,
   requests,
+  filters,
 });
 
 //CREATE STRORE

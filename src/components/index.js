@@ -9,10 +9,15 @@ import SidebarDrawer from "./features/SidebarDrawer/SidebarDrawer";
 import Pokemons from "./features/Pokemons/Pokemons";
 import PreviewPokemon from "./features/PreviewPokemon/PreviewPokemon";
 import SinglePokemon from "./features/SinglePokemon/SinglePokemon";
+import EvolutionChain from "./features/EvolutionChain/EvolutionChain";
+import EvolutionChainItem from "./features/EvolutionChainItem/EvolutionChainItem";
+import PokemonTypesFilterList from "./features/PokemonTypesFilterList/PokemonTypesFilterList";
 
 //Commons
 import Loader from "./common/Loader/Loader";
 import PaginationControlled from "./common/PaginationControlled/PaginationControlled";
+import TypesPokemonIcon from "./common/TypesPokemonIcon/TypesPokemonIcon";
+import AbilityPopover from "./common/AbilityPopover/AbilityPopover";
 
 //Layouts
 import MainLayout from "./layout/MainLayout/MainLayout";
@@ -29,4 +34,9 @@ export {
   PreviewPokemon,
   PaginationControlled,
   SinglePokemon,
+  TypesPokemonIcon,
+  EvolutionChain,
+  AbilityPopover,
+  EvolutionChainItem,
+  PokemonTypesFilterList,
 };

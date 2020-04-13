@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { loadPokemonsRequest } from "../../../redux/pokemonsReducer";
+import { setTypesFilter } from "../../../redux/filtersReducer";
 import CardContent from "@material-ui/core/CardContent";
 
 //import components
 import { Loader, PreviewPokemon, PaginationControlled } from "../../index";
 
-const Pokemons = ({ match }) => {
+const Pokemons = ({ page, filters }) => {
   const dispatch = useDispatch();
   const pokemons = useSelector(({ pokemons }) => pokemons.data);
   const request = useSelector(({ requests }) => requests.pokemons_request);
   const [pagination, setPagination] = useState({
     limit: 12,
-    presentPage: parseInt(match.params.page) || 1
+    presentPage: page || 1,
   });
 
   const count = useSelector(({ pokemons }) =>
@@ -20,21 +21,25 @@ const Pokemons = ({ match }) => {
   );
 
   const fetchData = () => {
-    if (parseInt(match.params.page)) {
-      const offset = (parseInt(match.params.page) - 1) * pagination.limit;
-      dispatch(loadPokemonsRequest(pagination.limit, offset));
+    if (typeof filters.types === "string")
+      dispatch(setTypesFilter([filters.types]));
+    else dispatch(setTypesFilter(filters.types));
+
+    if (page) {
+      const offset = (page - 1) * pagination.limit;
+      dispatch(loadPokemonsRequest(pagination.limit, offset, filters));
     } else {
-      dispatch(loadPokemonsRequest(pagination.limit, 0));
+      dispatch(loadPokemonsRequest(pagination.limit, 0, filters));
     }
 
-    setPagination({ ...pagination, presentPage: parseInt(match.params.page) });
+    setPagination({ ...pagination, presentPage: page });
   };
 
   const setPokemonPerPage = () => {};
 
   useEffect(() => {
     fetchData();
-  }, [match.params.page]);
+  }, [page]);
 
   return (
     <CardContent className="card-content">
@@ -51,6 +56,7 @@ const Pokemons = ({ match }) => {
           count={count}
           setPokemonPerPage={setPokemonPerPage}
           pagination={pagination}
+          filters={filters}
         />
       )}
     </CardContent>

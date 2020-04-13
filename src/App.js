@@ -13,7 +13,7 @@ function App() {
   return (
     <MainLayout>
       <Switch>
-        <Route path="/:page?" exact component={HomePage} />
+        <Route path="/" exact component={HomePage} />
         <Route path="/pokemon/:id" exact component={SinglePokemonPage} />
         <Route component={NotFoundPage} />
       </Switch>

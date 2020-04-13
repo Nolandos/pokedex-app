@@ -1,8 +1,8 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
 import Pagination from "@material-ui/lab/Pagination";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import queryString from "query-string";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -12,18 +12,16 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function PaginationControlled({
-  count,
-  setPokemonPerPage,
-  pagination,
-}) {
+export default function PaginationControlled({ count, pagination, filters }) {
+  console.log(filters);
+  const test = queryString.stringify(filters);
   const classes = useStyles();
   const history = useHistory();
   const { presentPage } = pagination;
 
   const handleChange = (event, value) => {
     if (presentPage !== value) {
-      history.push(`/${value}`);
+      history.push(`/?page=${value}${test ? `&${test}` : ""}`);
     }
   };
 

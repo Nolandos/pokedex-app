@@ -8,6 +8,7 @@ import { fade, makeStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   appBar: {
@@ -21,6 +22,8 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     flexGrow: 1,
+    color: "#fff",
+    fontSize: "1.5em",
     display: "none",
     [theme.breakpoints.up("sm")]: {
       display: "block",
@@ -83,9 +86,15 @@ const Navbar = ({ title, search, setIsOpenDrawer, ...children }) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
+          <Link
+            to={"/"}
+            style={{ textDecoration: "none" }}
+            className={classes.title}
+            variant="h6"
+            noWrap
+          >
             {title}
-          </Typography>
+          </Link>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />

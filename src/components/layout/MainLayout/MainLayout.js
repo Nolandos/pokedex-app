@@ -10,16 +10,16 @@ const MainLayout = ({ children }) => {
 
   return (
     <div>
+      <Navbar
+        title="Pokedex Api"
+        search="Search pokemon..."
+        setIsOpenDrawer={setIsOpenDrawer}
+      />
+      <SidebarDrawer
+        isOpenDrawer={isOpenDrawer}
+        setIsOpenDrawer={setIsOpenDrawer}
+      />
       <Container className="test-container" maxWidth="lg">
-        <Navbar
-          title="Pokedex Api"
-          search="Search pokemon..."
-          setIsOpenDrawer={setIsOpenDrawer}
-        />
-        <SidebarDrawer
-          isOpenDrawer={isOpenDrawer}
-          setIsOpenDrawer={setIsOpenDrawer}
-        />
         {children}
       </Container>
     </div>

@@ -3,45 +3,77 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { makeStyles } from "@material-ui/core/styles";
 import { loadSinglePokemonRequest } from "../../../redux/pokemonsReducer";
-import { resetRequest } from "../../../redux/requestsStatusReducer";
 import CardContent from "@material-ui/core/CardContent";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 
 //import components
-import { Loader } from "../../index";
+import {
+  Loader,
+  TypesPokemonIcon,
+  AbilityPopover,
+  EvolutionChain,
+} from "../../index";
 
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
+  flex-direction: ${props => (props.direction === "column" ? "column" : "row")};
+`;
+
+const Image = styled.img`
+  max-width: 350px;
+  width: 100%;
+  height: auto;
 `;
 
 const Title = styled.h1`
   display: flex;
   justify-content: center;
   text-transform: uppercase;
+  text-align: center;
+  font-size: 2.5em;
+`;
+
+const SectionTitle = styled.h2`
+  display: flex;
+  font-size: 2.2em;
+  margin-bottom: 0;
+  justify-content: center;
+  text-align: center;
+  text-transform: uppercase;
+`;
+
+const Description = styled.p`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5em;
+  text-align: center;
+  text-transform: uppercase;
 `;
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
-    color: theme.palette.text.secondary
-  }
+    color: theme.palette.text.secondary,
+  },
 }));
 
 const SinglePokemon = ({ match }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const pokemon = useSelector(({ pokemons }) => pokemons.singlePokemon);
-  const request = useSelector(({ requests }) => requests.pokemons_request);
+  const request = useSelector(
+    ({ requests }) => requests.single_pokemon_request
+  );
 
   const fetchData = async () => {
-    await dispatch(resetRequest("pokemons_request"));
-    dispatch(loadSinglePokemonRequest(parseInt(match.params.id)));
+    dispatch(loadSinglePokemonRequest(match.params.id));
   };
 
   useEffect(() => {
@@ -56,27 +88,56 @@ const SinglePokemon = ({ match }) => {
           <Grid item xs={12}>
             <Title>{pokemon.name}</Title>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <Wrapper>
-              <img src={pokemon.imageUrl}></img>
+              <Image src={pokemon.imageUrl}></Image>
             </Wrapper>
           </Grid>
-          <Grid item xs={6}>
-            <Paper className={classes.paper}>
-              {pokemon.species.flavor_text_entries[1].flavor_text}
-            </Paper>
+          <Grid item xs={12} md={6}>
+            <Description>
+              {
+                pokemon.species.flavor_text_entries.find(
+                  item => item.language.name === "en"
+                ).flavor_text
+              }
+            </Description>
           </Grid>
-          <Grid item xs={3}>
-            <Paper className={classes.paper}>xs=3</Paper>
+          <Grid item xs={12} md={4}>
+            <SectionTitle>Types</SectionTitle>
+            <Wrapper>
+              {pokemon.types.map(type => {
+                return <TypesPokemonIcon type={type.type.name} />;
+              })}
+            </Wrapper>
           </Grid>
-          <Grid item xs={3}>
-            <Paper className={classes.paper}>xs=3</Paper>
+          <Grid item xs={12} md={4}>
+            <SectionTitle>Size</SectionTitle>
+            <Wrapper>
+              <TypesPokemonIcon type="weight" value={pokemon.weight} />
+              <TypesPokemonIcon type="height" value={pokemon.height} />
+            </Wrapper>
           </Grid>
-          <Grid item xs={3}>
-            <Paper className={classes.paper}>xs=3</Paper>
+          <Grid item xs={12} md={4}>
+            <SectionTitle>Ability</SectionTitle>
+            <Wrapper direction="column">
+              {pokemon.abilities.map((ability, index) => {
+                return (
+                  <AbilityPopover
+                    name={ability.ability.name}
+                    index={index}
+                    description={
+                      ability.description.find(
+                        item => item.language.name === "en"
+                      ).flavor_text
+                    }
+                  />
+                );
+              })}
+            </Wrapper>
           </Grid>
-          <Grid item xs={3}>
-            <Paper className={classes.paper}>xs=3</Paper>
+          <Grid item xs={12}>
+            <SectionTitle>Evolution Chain</SectionTitle>
+            <EvolutionChain evolutionChain={pokemon.evoChain} />
           </Grid>
         </Grid>
       )}

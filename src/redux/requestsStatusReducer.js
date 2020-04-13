@@ -25,6 +25,11 @@ const initialState = {
     error: null,
     success: null,
   },
+  single_pokemon_request: {
+    pending: false,
+    error: null,
+    success: null,
+  },
 };
 
 //REDUCER
