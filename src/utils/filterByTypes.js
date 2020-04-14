@@ -2,11 +2,10 @@ import axios from "axios";
 
 const compare = (arr1, arr2) => {
   let result = [];
-
   arr1.forEach(e1 =>
     arr2.forEach(e2 => {
       if (e1.pokemon.name === e2.pokemon.name) {
-        result = [...result, e1.pokemon];
+        result = [...result, e1];
       }
     })
   );
@@ -27,9 +26,9 @@ export const filterByTypes = async (typeFilters, url) => {
         result = res.data.pokemon;
       } else {
         result = compare(result, res.data.pokemon);
-        if (result.length === 0) return result;
       }
     }
   }
+  result = result.map(pokemon => pokemon.pokemon);
   return result;
 };

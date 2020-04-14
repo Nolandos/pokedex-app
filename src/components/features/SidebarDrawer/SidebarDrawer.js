@@ -10,7 +10,12 @@ import { PokemonTypesFilterList } from "../../index";
 
 const useStyles = makeStyles({
   list: {
-    width: 350,
+    width: 320,
+  },
+  title: {
+    display: "flex",
+    textAlign: "center",
+    justifyContent: "center",
   },
   fullList: {
     width: "auto",
@@ -42,7 +47,7 @@ const SidebarDrawer = ({ isOpenDrawer, setIsOpenDrawer }) => {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        <h1>Types:</h1>
+        <h1 className={classes.title}>Select Pokemon Types:</h1>
         <PokemonTypesFilterList />
       </List>
     </div>

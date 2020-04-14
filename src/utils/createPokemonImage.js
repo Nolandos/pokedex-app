@@ -11,7 +11,7 @@ export const createPokemonImage = async (pokemons, url) => {
     }
     if (pokemonId >= 100) imageUrl = `${url}detail/${pokemonId}.png`;
 
-    return { ...pokemon, imageUrl, pokemonId };
+    return { ...pokemon, imageUrl, id: pokemonId };
   });
   return result;
 };

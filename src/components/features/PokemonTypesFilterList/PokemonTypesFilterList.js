@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import queryString from "query-string";
 import { TypesPokemonIcon } from "../../index";
+import { FaSearch } from "react-icons/fa";
 
 const ListElement = styled.li`
   cursor: pointer;
@@ -31,6 +32,23 @@ const Icon = styled.div`
 
   p {
     display: none;
+  }
+`;
+
+const Button = styled.button`
+  cursor: pointer;
+  outline: none;
+  margin-top: 20px;
+  font-size: 1.5em;
+  font-family: "Comic Neue";
+  padding: 15px 45px;
+  background-color: #ff5a00;
+  color: #fff;
+  border-radius: 2px;
+  font-weight: bold;
+  border: none;
+  &:hover {
+    background-color: #ff7e39;
   }
 `;
 
@@ -80,7 +98,7 @@ const PokemonTypesFilterList = () => {
           </ListElement>
         );
       })}
-      <button onClick={handleSubmit}>Wyszukaj</button>
+      <Button onClick={handleSubmit}>Search</Button>
     </Wrapper>
   );
 };
