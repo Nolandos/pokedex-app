@@ -7,13 +7,12 @@ import queryString from "query-string";
 const useStyles = makeStyles(theme => ({
   root: {
     "& > * + *": {
-      marginTop: theme.spacing(2),
-    },
-  },
+      marginTop: theme.spacing(2)
+    }
+  }
 }));
 
 export default function PaginationControlled({ count, pagination, filters }) {
-  console.log(filters);
   const test = queryString.stringify(filters);
   const classes = useStyles();
   const history = useHistory();

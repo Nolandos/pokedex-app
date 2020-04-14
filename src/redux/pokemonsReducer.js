@@ -3,7 +3,7 @@ import { API_URL, IMAGE_URL } from "../config";
 import {
   startRequest,
   endRequest,
-  errorRequest,
+  errorRequest
 } from "./requestsStatusReducer";
 import { filterByTypes } from "../utils/filterByTypes";
 import { createPokemonImage } from "../utils/createPokemonImage";
@@ -22,15 +22,15 @@ export const LOAD_POKEMONS_PAGE = createActionName("LOAD_POKEMONS_PAGE");
 // ACTIONS
 export const loadPokemons = payload => ({
   payload,
-  type: LOAD_POKEMONS,
+  type: LOAD_POKEMONS
 });
 export const loadSinglePokemon = payload => ({
   payload,
-  type: LOAD_SINGLE_POKEMON,
+  type: LOAD_SINGLE_POKEMON
 });
 export const loadPokemonsByPage = payload => ({
   payload,
-  type: LOAD_POKEMONS_PAGE,
+  type: LOAD_POKEMONS_PAGE
 });
 
 // THUNKS
@@ -48,7 +48,6 @@ export const loadPokemonsRequest = (limit, offset, filters) => {
         if (filters.types) {
           pokemons = await filterByTypes(filters.types, API_URL);
           count = pokemons.length;
-          console.log(count);
           pokemons = pokemons.slice(offset, limit + offset);
         }
 
@@ -59,8 +58,8 @@ export const loadPokemonsRequest = (limit, offset, filters) => {
         res = await axios.get(`${API_URL}/pokemon-species/`, {
           params: {
             limit: 1,
-            offset: 1,
-          },
+            offset: 1
+          }
         });
 
         count = res.data.count;
@@ -68,8 +67,8 @@ export const loadPokemonsRequest = (limit, offset, filters) => {
         res = await axios.get(`${API_URL}/pokemon/`, {
           params: {
             limit,
-            offset,
-          },
+            offset
+          }
         });
 
         pokemons = res.data.results;
@@ -83,7 +82,7 @@ export const loadPokemonsRequest = (limit, offset, filters) => {
           pokemons[id - offset - 1] = {
             ...pokemons[id - offset - 1],
             imageUrl,
-            id,
+            id
           };
         }
       }
@@ -94,7 +93,7 @@ export const loadPokemonsRequest = (limit, offset, filters) => {
       const payload = {
         pokemons,
         count,
-        types,
+        types
       };
 
       await dispatch(loadPokemons(payload));
@@ -130,7 +129,7 @@ export const loadSinglePokemonRequest = name => {
         res = await axios.get(pokemon.abilities[i].ability.url);
         pokemon.abilities[i] = {
           ...pokemon.abilities[i],
-          description: res.data.flavor_text_entries,
+          description: res.data.flavor_text_entries
         };
       }
 
@@ -156,7 +155,7 @@ export const loadSinglePokemonRequest = name => {
         evoChain.push({
           name: evoData.species.name,
           id: pokemonId,
-          imageUrl,
+          imageUrl
         });
 
         evoData = evoData["evolves_to"][0];
@@ -177,7 +176,7 @@ const initialState = {
   data: [],
   singlePokemon: {},
   count: 0,
-  types: [],
+  types: []
 };
 
 //REDUCER
@@ -188,7 +187,7 @@ export default function pokemonsReducer(state = initialState, action = {}) {
         ...state,
         data: action.payload.pokemons,
         count: action.payload.count,
-        types: action.payload.types,
+        types: action.payload.types
       };
     case LOAD_SINGLE_POKEMON:
       return { ...state, singlePokemon: action.payload };

@@ -21,6 +21,7 @@ import {
   GiTwoShadows,
   GiWeight,
   GiBodyHeight,
+  GiFlyingTarget
 } from "react-icons/gi";
 import { FaQuestion } from "react-icons/fa";
 import { MdDone } from "react-icons/md";
@@ -48,7 +49,7 @@ const TypesPokemonIcon = ({ type, value, classes }) => {
       )}
       {type === "flying" && (
         <div className="type">
-          <GiFlyingTrout className={`type-icon flying ${classes}`} />
+          <GiFlyingTarget className={`type-icon flying ${classes}`} />
           <p className="type-name">{type}</p>
         </div>
       )}
