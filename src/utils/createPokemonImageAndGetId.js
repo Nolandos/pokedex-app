@@ -1,8 +1,10 @@
-export const createPokemonImage = async (pokemons, url) => {
+import { API_URL } from "../config";
+
+export const createPokemonImageAndGetId = async (pokemons, url) => {
   let imageUrl = "";
 
   const result = await pokemons.map(pokemon => {
-    let pokemonId = pokemon.url.split("https://pokeapi.co/api/v2/pokemon/")[1];
+    let pokemonId = pokemon.url.split(`${API_URL}/pokemon/`)[1];
     pokemonId = parseInt(pokemonId.substring(0, pokemonId.length - 1));
 
     if (pokemonId < 10) imageUrl = `${url}detail/00${pokemonId}.png`;
