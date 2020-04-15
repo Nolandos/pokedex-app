@@ -6,13 +6,14 @@ import { loadSinglePokemonRequest } from "../../../redux/pokemonsReducer";
 import CardContent from "@material-ui/core/CardContent";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
+import { FaArrowLeft } from "react-icons/fa";
 
 //import components
 import {
   Loader,
   TypesPokemonIcon,
   AbilityPopover,
-  EvolutionChain,
+  EvolutionChain
 } from "../../index";
 
 const Wrapper = styled.div`
@@ -53,15 +54,23 @@ const Description = styled.p`
   text-transform: uppercase;
 `;
 
+const BackButton = styled.button`
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 2em;
+`;
+
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
-    color: theme.palette.text.secondary,
-  },
+    color: theme.palette.text.secondary
+  }
 }));
 
 const SinglePokemon = ({ match }) => {

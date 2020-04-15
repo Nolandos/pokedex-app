@@ -12,6 +12,7 @@ import SinglePokemon from "./features/SinglePokemon/SinglePokemon";
 import EvolutionChain from "./features/EvolutionChain/EvolutionChain";
 import EvolutionChainItem from "./features/EvolutionChainItem/EvolutionChainItem";
 import PokemonTypesFilterList from "./features/PokemonTypesFilterList/PokemonTypesFilterList";
+import NotFound from "./features/NotFound/NotFound";
 
 //Commons
 import Loader from "./common/Loader/Loader";
@@ -39,4 +40,5 @@ export {
   AbilityPopover,
   EvolutionChainItem,
   PokemonTypesFilterList,
+  NotFound
 };

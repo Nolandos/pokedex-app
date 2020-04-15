@@ -7,12 +7,12 @@ import queryString from "query-string";
 const useStyles = makeStyles(theme => ({
   root: {
     "& > * + *": {
-      marginTop: theme.spacing(2),
+      marginTop: theme.spacing(2)
     },
     width: "100%",
     display: "flex",
-    justifyContent: "center",
-  },
+    justifyContent: "center"
+  }
 }));
 
 export default function PaginationControlled({ count, pagination, filters }) {

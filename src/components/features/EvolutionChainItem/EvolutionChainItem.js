@@ -32,7 +32,7 @@ const PhotoBox = styled.div`
   overflow: hidden;
   background-image: url(${pokeballImg});
   background-position: center;
-  background-size: auto;
+  background-size: contain;
   border: 1px solid #000;
   position: relative;
 `;

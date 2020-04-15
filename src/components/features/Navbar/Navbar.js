@@ -2,46 +2,40 @@ import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
-import SearchIcon from "@material-ui/icons/Search";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   appBar: {
-    backgroundColor: "#ff5a00",
+    backgroundColor: "#ff5a00"
   },
   root: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(2)
   },
   title: {
     flexGrow: 1,
     color: "#fff",
     fontSize: "1.5em",
-    display: "none",
-    [theme.breakpoints.up("sm")]: {
-      display: "block",
-    },
+    display: "block"
   },
   search: {
     position: "relative",
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
     "&:hover": {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
+      backgroundColor: fade(theme.palette.common.white, 0.25)
     },
     marginLeft: 0,
     width: "100%",
     [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(1),
-      width: "auto",
-    },
+      width: "auto"
+    }
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
@@ -50,10 +44,10 @@ const useStyles = makeStyles(theme => ({
     pointerEvents: "none",
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "center"
   },
   inputRoot: {
-    color: "inherit",
+    color: "inherit"
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
@@ -64,10 +58,10 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up("sm")]: {
       width: "12ch",
       "&:focus": {
-        width: "20ch",
-      },
-    },
-  },
+        width: "20ch"
+      }
+    }
+  }
 }));
 
 const Navbar = ({ title, search, setIsOpenDrawer, ...children }) => {
@@ -87,7 +81,8 @@ const Navbar = ({ title, search, setIsOpenDrawer, ...children }) => {
             <MenuIcon />
           </IconButton>
           <Link
-            to={"/"}
+            to={`/${window.location.search}`}
+            replace
             style={{ textDecoration: "none" }}
             className={classes.title}
             variant="h6"
@@ -95,19 +90,6 @@ const Navbar = ({ title, search, setIsOpenDrawer, ...children }) => {
           >
             {title}
           </Link>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder={search}
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ "aria-label": "search" }}
-            />
-          </div>
         </Toolbar>
       </AppBar>
     </div>
@@ -118,7 +100,7 @@ Navbar.propTypes = {
   title: PropTypes.string,
   setIsOpenDrawer: PropTypes.func,
   search: PropTypes.string,
-  children: PropTypes.node,
+  children: PropTypes.node
 };
 
 export default Navbar;

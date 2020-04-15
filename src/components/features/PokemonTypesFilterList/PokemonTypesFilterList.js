@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import queryString from "query-string";
 import { TypesPokemonIcon } from "../../index";
-import { FaSearch } from "react-icons/fa";
 
 const ListElement = styled.li`
   cursor: pointer;
@@ -65,13 +64,11 @@ const PokemonTypesFilterList = () => {
     let filtersArray = [];
     let temp = {};
     for (const property in filters) {
-      console.log(`${property}: ${filters[property]}`);
       if (filters[property]) filtersArray.push(`${property}`);
     }
     temp["types"] = filtersArray;
     let query = queryString.stringify(temp);
-    window.location.replace(`?${query}`);
-    console.log(query);
+    window.location.replace(`/?${query}`);
   };
 
   useEffect(() => {
