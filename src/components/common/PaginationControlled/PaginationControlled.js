@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Pagination from "@material-ui/lab/Pagination";
 import { useHistory } from "react-router-dom";
 import queryString from "query-string";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -16,14 +17,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function PaginationControlled({ count, pagination, filters }) {
-  const test = queryString.stringify(filters);
+  const search = queryString.stringify(filters);
   const classes = useStyles();
   const history = useHistory();
   const { presentPage } = pagination;
 
   const handleChange = (event, value) => {
     if (presentPage !== value) {
-      history.push(`/?page=${value}${test ? `&${test}` : ""}`);
+      history.push(`/?page=${value}${search ? `&${search}` : ""}`);
     }
   };
 
@@ -40,3 +41,9 @@ export default function PaginationControlled({ count, pagination, filters }) {
     </div>
   );
 }
+
+PaginationControlled.propTypes = {
+  count: PropTypes.number,
+  pagination: PropTypes.object,
+  filters: PropTypes.array
+};

@@ -82,9 +82,9 @@ const PokemonTypesFilterList = () => {
 
   return (
     <Wrapper>
-      {types.map(type => {
+      {types.map((type, index) => {
         return (
-          <ListElement>
+          <ListElement key={index}>
             <Icon onClick={() => toggleFilter(type.name)}>
               <TypesPokemonIcon
                 type={type.name}

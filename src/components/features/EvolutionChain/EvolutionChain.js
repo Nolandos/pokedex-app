@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 //import components
 import { EvolutionChainItem } from "../../index";
@@ -18,9 +19,9 @@ const EvolutionChain = ({ evolutionChain }) => {
   return (
     <Wrapper>
       {evolutionChain.map((evolution, index) => {
-        console.log(index, len);
         return (
           <EvolutionChainItem
+            key={index}
             evolution={evolution}
             arrow={index < len ? true : false}
           />
@@ -28,6 +29,10 @@ const EvolutionChain = ({ evolutionChain }) => {
       })}
     </Wrapper>
   );
+};
+
+EvolutionChain.propTypes = {
+  evolutionChain: PropTypes.array
 };
 
 export default EvolutionChain;

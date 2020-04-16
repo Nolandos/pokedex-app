@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import pokeballImg from "./pokeball.png";
+import PropTypes from "prop-types";
+
+import { Loader } from "../../index";
 
 const PreviewCard = styled.div`
   display: flex;
@@ -55,10 +58,18 @@ const PhotoBox = styled.div`
   background-size: auto;
   border: 1px solid #000;
   position: relative;
+
+  .image-loader {
+    display: flex;
+  }
 `;
 const Photo = styled.img`
   width: auto;
   height: 90%;
+`;
+const LoaderWrapper = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const Name = styled.p`
@@ -72,6 +83,8 @@ const Name = styled.p`
 const PreviewPokemon = ({ pokemon }) => {
   const { name, imageUrl } = pokemon;
 
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   return (
     <Link
       to={`/pokemon/${name}`}
@@ -83,12 +96,25 @@ const PreviewPokemon = ({ pokemon }) => {
           <Overlay>
             <p>See More...</p>
           </Overlay>
-          <Photo src={imageUrl} />
+          {!imageLoaded && (
+            <LoaderWrapper>
+              <Loader />
+            </LoaderWrapper>
+          )}
+          <Photo
+            style={{ display: imageLoaded ? "block" : "none" }}
+            src={imageUrl}
+            onLoad={() => setImageLoaded(true)}
+          />
         </PhotoBox>
         <Name>{name}</Name>
       </PreviewCard>
     </Link>
   );
+};
+
+PreviewPokemon.propTypes = {
+  pokemon: PropTypes.object
 };
 
 export default PreviewPokemon;

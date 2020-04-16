@@ -30,7 +30,10 @@ const useStyles = makeStyles({
   },
   closeIcon: {
     fontSize: "1.7em",
-    cursor: "pointer"
+    cursor: "pointer",
+    "&:hover": {
+      opacity: "0.5"
+    }
   }
 });
 

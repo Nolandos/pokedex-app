@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import "./TypePokemonIcon.scss";
 import {
   GiGrass,
@@ -163,6 +164,12 @@ const TypesPokemonIcon = ({ type, value, classes }) => {
       )}
     </>
   );
+};
+
+TypesPokemonIcon.propTypes = {
+  type: PropTypes.string,
+  value: PropTypes.number,
+  classes: PropTypes.string
 };
 
 export default TypesPokemonIcon;

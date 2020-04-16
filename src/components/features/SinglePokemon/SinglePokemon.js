@@ -4,9 +4,8 @@ import styled from "styled-components";
 import { makeStyles } from "@material-ui/core/styles";
 import { loadSinglePokemonRequest } from "../../../redux/pokemonsReducer";
 import CardContent from "@material-ui/core/CardContent";
-import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import { FaArrowLeft } from "react-icons/fa";
+import PropTypes from "prop-types";
 
 //import components
 import {
@@ -114,8 +113,8 @@ const SinglePokemon = ({ match }) => {
           <Grid item xs={12} md={4}>
             <SectionTitle>Types</SectionTitle>
             <Wrapper>
-              {pokemon.types.map(type => {
-                return <TypesPokemonIcon type={type.type.name} />;
+              {pokemon.types.map((type, index) => {
+                return <TypesPokemonIcon key={index} type={type.type.name} />;
               })}
             </Wrapper>
           </Grid>
@@ -133,6 +132,7 @@ const SinglePokemon = ({ match }) => {
                 return (
                   <AbilityPopover
                     name={ability.ability.name}
+                    key={index}
                     index={index}
                     description={
                       ability.description.find(
@@ -152,6 +152,10 @@ const SinglePokemon = ({ match }) => {
       )}
     </CardContent>
   );
+};
+
+SinglePokemon.propTypes = {
+  match: PropTypes.object
 };
 
 export default SinglePokemon;

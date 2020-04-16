@@ -3,7 +3,7 @@ import { API_URL, IMAGE_URL } from "../config";
 import {
   startRequest,
   endRequest,
-  errorRequest,
+  errorRequest
 } from "./requestsStatusReducer";
 import { filterByTypes } from "../utils/filterByTypes";
 import { createPokemonImageAndGetId } from "../utils/createPokemonImageAndGetId";
@@ -22,15 +22,15 @@ export const LOAD_POKEMONS_PAGE = createActionName("LOAD_POKEMONS_PAGE");
 // ACTIONS
 export const loadPokemons = payload => ({
   payload,
-  type: LOAD_POKEMONS,
+  type: LOAD_POKEMONS
 });
 export const loadSinglePokemon = payload => ({
   payload,
-  type: LOAD_SINGLE_POKEMON,
+  type: LOAD_SINGLE_POKEMON
 });
 export const loadPokemonsByPage = payload => ({
   payload,
-  type: LOAD_POKEMONS_PAGE,
+  type: LOAD_POKEMONS_PAGE
 });
 
 // THUNKS
@@ -50,7 +50,11 @@ export const loadPokemonsRequest = (limit, offset, filters) => {
           pokemons = await filterByTypes(filters.types, API_URL);
         }
 
-        pokemons = await createPokemonImageAndGetId(pokemons, IMAGE_URL);
+        pokemons = await createPokemonImageAndGetId(
+          pokemons,
+          IMAGE_URL,
+          "pokemon"
+        );
 
         pokemons = pokemons.filter(pokemon => pokemon.id <= count);
 
@@ -62,29 +66,26 @@ export const loadPokemonsRequest = (limit, offset, filters) => {
         res = await axios.get(`${API_URL}/pokemon/`, {
           params: {
             limit: 1,
-            offset: 1,
-          },
+            offset: 1
+          }
         });
 
         res = await axios.get(`${API_URL}/pokemon/`, {
           params: {
             limit,
-            offset,
-          },
+            offset
+          }
         });
 
         pokemons = res.data.results;
 
         for (let id = offset + 1; id <= offset + limit; id++) {
-          let imageUrl = "";
-          if (id < 10) imageUrl = `${IMAGE_URL}detail/00${id}.png`;
-          if (id >= 10 && id < 100) imageUrl = `${IMAGE_URL}detail/0${id}.png`;
-          if (id >= 100) imageUrl = `${IMAGE_URL}detail/${id}.png`;
+          const imageUrl = `${IMAGE_URL}${id}.png`;
 
           pokemons[id - offset - 1] = {
             ...pokemons[id - offset - 1],
             imageUrl,
-            id,
+            id
           };
         }
 
@@ -97,7 +98,7 @@ export const loadPokemonsRequest = (limit, offset, filters) => {
       const payload = {
         pokemons,
         count,
-        types,
+        types
       };
 
       await dispatch(loadPokemons(payload));
@@ -114,14 +115,12 @@ export const loadSinglePokemonRequest = name => {
 
     try {
       let pokemon = {};
+      let imageUrl = "";
       let res = await axios.get(`${API_URL}/pokemon/${name}`);
 
       const id = res.data.id;
 
-      let imageUrl = "";
-      if (id < 10) imageUrl = `${IMAGE_URL}full/00${id}.png`;
-      if (id >= 10 && id < 100) imageUrl = `${IMAGE_URL}full/0${id}.png`;
-      if (id >= 100) imageUrl = `${IMAGE_URL}full/${id}.png`;
+      imageUrl = `${IMAGE_URL}${id}.png`;
 
       pokemon = { ...res.data, imageUrl };
 
@@ -133,39 +132,30 @@ export const loadSinglePokemonRequest = name => {
         res = await axios.get(pokemon.abilities[i].ability.url);
         pokemon.abilities[i] = {
           ...pokemon.abilities[i],
-          description: res.data.flavor_text_entries,
+          description: res.data.flavor_text_entries
         };
       }
 
       res = await axios.get(pokemon.species.evolution_chain.url);
-      const evoChain = [];
+      let evoChain = [];
       let evoData = res.data.chain;
 
       do {
-        const pokemonId = parseInt(
-          evoData.species.url.substring(
-            42,
-            evoData.species.url.lastIndexOf("/")
-          )
-        );
-
-        imageUrl = "";
-        if (pokemonId < 10) imageUrl = `${IMAGE_URL}detail/00${pokemonId}.png`;
-        if (pokemonId >= 10 && pokemonId < 100) {
-          imageUrl = `${IMAGE_URL}detail/0${pokemonId}.png`;
-        }
-        if (pokemonId >= 100) imageUrl = `${IMAGE_URL}detail/${pokemonId}.png`;
-
         evoChain.push({
           name: evoData.species.name,
-          id: pokemonId,
-          imageUrl,
+          url: evoData.species.url
         });
 
         evoData = evoData["evolves_to"][0];
       } while (!!evoData && evoData.hasOwnProperty("evolves_to"));
 
-      pokemon = { ...pokemon, evoChain };
+      evoChain = await createPokemonImageAndGetId(
+        evoChain,
+        IMAGE_URL,
+        "pokemon-species"
+      );
+
+      pokemon = { ...pokemon, evoChain: evoChain };
 
       dispatch(loadSinglePokemon(pokemon));
       dispatch(endRequest(singlePokemonsRequestName));
@@ -180,7 +170,7 @@ const initialState = {
   data: [],
   singlePokemon: {},
   count: 0,
-  types: [],
+  types: []
 };
 
 //REDUCER
@@ -191,7 +181,7 @@ export default function pokemonsReducer(state = initialState, action = {}) {
         ...state,
         data: action.payload.pokemons,
         count: action.payload.count,
-        types: action.payload.types,
+        types: action.payload.types
       };
     case LOAD_SINGLE_POKEMON:
       return { ...state, singlePokemon: action.payload };

@@ -2,15 +2,16 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Popover from "@material-ui/core/Popover";
 import Typography from "@material-ui/core/Typography";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles(theme => ({
   typography: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(2)
   },
   abilityName: {
     fontSize: "1.7em",
     fontWeight: "bold",
-    margin: "0px 5px",
+    margin: "0px 5px"
   },
   wrapper: {
     display: "flex",
@@ -18,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: "center",
     flexWrap: "wrap",
     margin: "5px 5px",
-    padding: "0 5px",
+    padding: "0 5px"
   },
   questionButton: {
     backgroundColor: "transparent",
@@ -32,8 +33,8 @@ const useStyles = makeStyles(theme => ({
     height: "25px",
     width: "25px",
     fontWeight: "bold",
-    fontSize: "1.2em",
-  },
+    fontSize: "1.2em"
+  }
 }));
 
 export default function AbilityPopover({ name, description, index }) {
@@ -70,11 +71,11 @@ export default function AbilityPopover({ name, description, index }) {
         onClose={handleClose}
         anchorOrigin={{
           vertical: "bottom",
-          horizontal: "center",
+          horizontal: "center"
         }}
         transformOrigin={{
           vertical: "top",
-          horizontal: "center",
+          horizontal: "center"
         }}
       >
         <Typography className={classes.typography}>{description}</Typography>
@@ -82,3 +83,9 @@ export default function AbilityPopover({ name, description, index }) {
     </div>
   );
 }
+
+AbilityPopover.propTypes = {
+  name: PropTypes.string,
+  description: PropTypes.string,
+  index: PropTypes.number
+};

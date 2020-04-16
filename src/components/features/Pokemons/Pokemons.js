@@ -4,6 +4,7 @@ import { loadPokemonsRequest } from "../../../redux/pokemonsReducer";
 import { setTypesFilter } from "../../../redux/filtersReducer";
 import CardContent from "@material-ui/core/CardContent";
 import Alert from "@material-ui/lab/Alert";
+import PropTypes from "prop-types";
 
 //import components
 import { Loader, PreviewPokemon, PaginationControlled } from "../../index";
@@ -22,9 +23,8 @@ const Pokemons = ({ page, filters }) => {
   );
 
   const fetchData = () => {
-    if (typeof filters.types === "string")
-      dispatch(setTypesFilter([filters.types]));
-    else dispatch(setTypesFilter(filters.types));
+    if (typeof filters.types === "string") filters.types = [filters.types];
+    dispatch(setTypesFilter(filters.types));
 
     if (page) {
       const offset = (page - 1) * pagination.limit;
@@ -64,6 +64,11 @@ const Pokemons = ({ page, filters }) => {
       )}
     </CardContent>
   );
+};
+
+Pokemons.propTypes = {
+  page: PropTypes.number,
+  filters: PropTypes.array
 };
 
 export default Pokemons;

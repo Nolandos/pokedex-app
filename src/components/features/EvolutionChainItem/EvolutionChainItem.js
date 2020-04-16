@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import pokeballImg from "./pokeball.png";
+import PropTypes from "prop-types";
 
 import { GoArrowRight } from "react-icons/go";
 
@@ -85,6 +86,11 @@ const EvolutionChainItem = ({ evolution, arrow }) => {
       </PreviewCard>
     </Link>
   );
+};
+
+EvolutionChainItem.propTypes = {
+  evolution: PropTypes.object,
+  arrow: PropTypes.bool
 };
 
 export default EvolutionChainItem;
