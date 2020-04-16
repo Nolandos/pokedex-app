@@ -22,9 +22,9 @@ https://pokedex-app-2e1c0.web.app/
 - and other...
 
 # Preview
-![photo_1](./files/screen_001.png)
-![photo_2](./files/screen_002.png)
-![photo_3](./files/screen_003.png)
+![photo_1](./files/photo_1.png)
+![photo_2](./files/photo_2.png)
+![photo_3](./files/photo_3.png)
 
 # Tasks :
 -`npm install` or `yarn install` to install package
