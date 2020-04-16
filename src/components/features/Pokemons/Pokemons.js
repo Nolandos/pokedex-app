@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { loadPokemonsRequest } from "../../../redux/pokemonsReducer";
-import { setTypesFilter } from "../../../redux/filtersReducer";
+import { setTypesFilter, setMatchType } from "../../../redux/filtersReducer";
 import CardContent from "@material-ui/core/CardContent";
 import Alert from "@material-ui/lab/Alert";
 import PropTypes from "prop-types";
@@ -15,7 +15,7 @@ const Pokemons = ({ page, filters }) => {
   const request = useSelector(({ requests }) => requests.pokemons_request);
   const [pagination, setPagination] = useState({
     limit: 12,
-    presentPage: page || 1
+    presentPage: page || 1,
   });
 
   const count = useSelector(({ pokemons }) =>
@@ -25,6 +25,7 @@ const Pokemons = ({ page, filters }) => {
   const fetchData = () => {
     if (typeof filters.types === "string") filters.types = [filters.types];
     dispatch(setTypesFilter(filters.types));
+    if (filters.match) dispatch(setMatchType(filters.match));
 
     if (page) {
       const offset = (page - 1) * pagination.limit;
@@ -68,7 +69,7 @@ const Pokemons = ({ page, filters }) => {
 
 Pokemons.propTypes = {
   page: PropTypes.number,
-  filters: PropTypes.array
+  filters: PropTypes.array,
 };
 
 export default Pokemons;

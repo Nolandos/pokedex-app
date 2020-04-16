@@ -12,7 +12,15 @@ const compare = (arr1, arr2) => {
   return result;
 };
 
-export const filterByTypes = async (typeFilters, url) => {
+const removeDuplicate = array => {
+  const result = Array.from(new Set(array.map(a => a.name))).map(name => {
+    return array.find(a => a.name === name);
+  });
+
+  return result;
+};
+
+export const filterByTypes = async (typeFilters, url, match) => {
   let result = [];
   if (typeFilters.length === 1) {
     const res = await axios.get(`${url}/type/${typeFilters[0]}`);
@@ -25,10 +33,19 @@ export const filterByTypes = async (typeFilters, url) => {
       if (i === 0) {
         result = res.data.pokemon;
       } else {
-        result = compare(result, res.data.pokemon);
+        if (match) {
+          result = compare(result, res.data.pokemon);
+        } else if (!match) {
+          result = [...result, ...res.data.pokemon];
+        }
       }
     }
   }
+
   result = result.map(pokemon => pokemon.pokemon);
+
+  if (!match) {
+    result = removeDuplicate(result);
+  }
   return result;
 };

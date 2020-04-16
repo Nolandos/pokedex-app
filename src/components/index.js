@@ -18,7 +18,7 @@ import NotFound from "./features/NotFound/NotFound";
 import Loader from "./common/Loader/Loader";
 import PaginationControlled from "./common/PaginationControlled/PaginationControlled";
 import TypesPokemonIcon from "./common/TypesPokemonIcon/TypesPokemonIcon";
-import AbilityPopover from "./common/AbilityPopover/AbilityPopover";
+import AbilityPopper from "./common/AbilityPopper/AbilityPopper";
 
 //Layouts
 import MainLayout from "./layout/MainLayout/MainLayout";
@@ -37,8 +37,8 @@ export {
   SinglePokemon,
   TypesPokemonIcon,
   EvolutionChain,
-  AbilityPopover,
+  AbilityPopper,
   EvolutionChainItem,
   PokemonTypesFilterList,
-  NotFound
+  NotFound,
 };

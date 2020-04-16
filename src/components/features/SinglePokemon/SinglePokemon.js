@@ -6,13 +6,14 @@ import { loadSinglePokemonRequest } from "../../../redux/pokemonsReducer";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
+import { FaArrowLeft } from "react-icons/fa";
 
 //import components
 import {
   Loader,
   TypesPokemonIcon,
-  AbilityPopover,
-  EvolutionChain
+  AbilityPopper,
+  EvolutionChain,
 } from "../../index";
 
 const Wrapper = styled.div`
@@ -23,6 +24,7 @@ const Wrapper = styled.div`
 
 const Image = styled.img`
   max-width: 350px;
+  max-height: 350px;
   width: 100%;
   height: auto;
 `;
@@ -31,6 +33,7 @@ const Title = styled.h1`
   display: flex;
   justify-content: center;
   text-transform: uppercase;
+  position: relative;
   text-align: center;
   font-size: 2.5em;
 `;
@@ -55,25 +58,30 @@ const Description = styled.p`
 
 const BackButton = styled.button`
   background-color: transparent;
+  position: absolute;
+  left: 0;
+  top: 13px;
   border: none;
   outline: none;
   cursor: pointer;
-  font-size: 2em;
+  font-size: 1em;
+  &:hover {
+    opacity: 0.5;
+  }
 `;
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
-    color: theme.palette.text.secondary
-  }
+    color: theme.palette.text.secondary,
+  },
 }));
 
 const SinglePokemon = ({ match }) => {
-  const classes = useStyles();
   const dispatch = useDispatch();
   const pokemon = useSelector(({ pokemons }) => pokemons.singlePokemon);
   const request = useSelector(
@@ -94,7 +102,12 @@ const SinglePokemon = ({ match }) => {
       {request.success && (
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Title>{pokemon.name}</Title>
+            <Title>
+              <BackButton>
+                <FaArrowLeft onClick={() => window.history.back()} />
+              </BackButton>
+              {pokemon.name}
+            </Title>
           </Grid>
           <Grid item xs={12} md={6}>
             <Wrapper>
@@ -130,7 +143,7 @@ const SinglePokemon = ({ match }) => {
             <Wrapper direction="column">
               {pokemon.abilities.map((ability, index) => {
                 return (
-                  <AbilityPopover
+                  <AbilityPopper
                     name={ability.ability.name}
                     key={index}
                     index={index}
@@ -155,7 +168,7 @@ const SinglePokemon = ({ match }) => {
 };
 
 SinglePokemon.propTypes = {
-  match: PropTypes.object
+  match: PropTypes.object,
 };
 
 export default SinglePokemon;

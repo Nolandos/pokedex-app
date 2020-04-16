@@ -5,7 +5,6 @@ import {
   GiGrass,
   GiPoisonBottle,
   GiBoxingGlove,
-  GiFlyingTrout,
   GiGroundSprout,
   GiRock,
   GiSpottedBug,
@@ -22,7 +21,7 @@ import {
   GiTwoShadows,
   GiWeight,
   GiBodyHeight,
-  GiFlyingTarget
+  GiFlyingTarget,
 } from "react-icons/gi";
 import { FaQuestion } from "react-icons/fa";
 import { MdDone } from "react-icons/md";
@@ -169,7 +168,7 @@ const TypesPokemonIcon = ({ type, value, classes }) => {
 TypesPokemonIcon.propTypes = {
   type: PropTypes.string,
   value: PropTypes.number,
-  classes: PropTypes.string
+  classes: PropTypes.string,
 };
 
 export default TypesPokemonIcon;

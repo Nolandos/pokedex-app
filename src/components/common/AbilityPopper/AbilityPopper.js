@@ -1,17 +1,20 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Popover from "@material-ui/core/Popover";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
+import Popper from "@material-ui/core/Popper";
+import Fade from "@material-ui/core/Fade";
+import Paper from "@material-ui/core/Paper";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
 const useStyles = makeStyles(theme => ({
   typography: {
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
   },
   abilityName: {
     fontSize: "1.7em",
     fontWeight: "bold",
-    margin: "0px 5px"
+    margin: "0px 5px",
   },
   wrapper: {
     display: "flex",
@@ -19,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: "center",
     flexWrap: "wrap",
     margin: "5px 5px",
-    padding: "0 5px"
+    padding: "0 5px",
   },
   questionButton: {
     backgroundColor: "transparent",
@@ -33,11 +36,11 @@ const useStyles = makeStyles(theme => ({
     height: "25px",
     width: "25px",
     fontWeight: "bold",
-    fontSize: "1.2em"
-  }
+    fontSize: "1.2em",
+  },
 }));
 
-export default function AbilityPopover({ name, description, index }) {
+export default function AbilityPopper({ name, description, index }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -50,7 +53,7 @@ export default function AbilityPopover({ name, description, index }) {
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
+  const id = open ? "simple-Popper" : undefined;
 
   return (
     <div className={classes.wrapper}>
@@ -64,28 +67,40 @@ export default function AbilityPopover({ name, description, index }) {
       >
         ?
       </button>
-      <Popover
+      <Popper
+        //className={classes.popper}
         id={id}
         open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
         anchorOrigin={{
           vertical: "bottom",
-          horizontal: "center"
+          horizontal: "center",
         }}
         transformOrigin={{
           vertical: "top",
-          horizontal: "center"
+          horizontal: "center",
         }}
+        anchorEl={anchorEl}
+        transition
       >
-        <Typography className={classes.typography}>{description}</Typography>
-      </Popover>
+        {({ TransitionProps }) => (
+          <ClickAwayListener onClickAway={handleClose}>
+            <Fade {...TransitionProps} timeout={350}>
+              <Paper //className={classes.SliderBox}
+              >
+                <Typography className={classes.typography}>
+                  {description}
+                </Typography>
+              </Paper>
+            </Fade>
+          </ClickAwayListener>
+        )}
+      </Popper>
     </div>
   );
 }
 
-AbilityPopover.propTypes = {
+AbilityPopper.propTypes = {
   name: PropTypes.string,
   description: PropTypes.string,
-  index: PropTypes.number
+  index: PropTypes.number,
 };

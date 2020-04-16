@@ -10,7 +10,7 @@ const MainLayout = ({ children }) => {
 
   return (
     <div>
-      <Navbar title="Pokedex Api" setIsOpenDrawer={setIsOpenDrawer} />
+      <Navbar title="Pokedex App" setIsOpenDrawer={setIsOpenDrawer} />
       <SidebarDrawer
         isOpenDrawer={isOpenDrawer}
         setIsOpenDrawer={setIsOpenDrawer}
@@ -23,7 +23,7 @@ const MainLayout = ({ children }) => {
 };
 
 MainLayout.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export default MainLayout;

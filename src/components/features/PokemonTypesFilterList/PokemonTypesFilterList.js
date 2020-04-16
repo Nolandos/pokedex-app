@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import queryString from "query-string";
 import { TypesPokemonIcon } from "../../index";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 
 const ListElement = styled.li`
   cursor: pointer;
@@ -10,6 +12,9 @@ const ListElement = styled.li`
   align-items: center;
   justify-content: start;
   width: 50%;
+  &:hover {
+    font-weight: bold;
+  }
 `;
 
 const Wrapper = styled.ul`
@@ -17,14 +22,23 @@ const Wrapper = styled.ul`
   flex-wrap: wrap;
   justify-content: space-around;
   padding-left: 0;
+
+  .MuiFormControlLabel-root {
+    margin-top: 20px;
+    margin-bottom: 5px;
+    .MuiTypography-body1 {
+      font-family: "Comic Neue";
+      font-weight: bold;
+    }
+  }
 `;
 
 const Icon = styled.div`
   cursor: pointer;
   font-size: 0.7em;
-  &.inactive {
+  .inactive {
     color: #bdc3c7;
-    &:hover {
+    ${ListElement}:hover & {
       color: #ecf0f1;
     }
   }
@@ -54,7 +68,10 @@ const Button = styled.button`
 const PokemonTypesFilterList = () => {
   const types = useSelector(({ pokemons }) => pokemons.types);
   const typesFilter = useSelector(({ filters }) => filters.TYPES_FILTER) || [];
-  const [filters, setFilter] = useState({});
+  const match = useSelector(({ filters }) => filters.MATCH_TYPE);
+  const [filters, setFilter] = useState({
+    match: false,
+  });
 
   const toggleFilter = type => {
     setFilter({ ...filters, [type]: filters[type] ? false : true });
@@ -63,12 +80,19 @@ const PokemonTypesFilterList = () => {
   const handleSubmit = () => {
     let filtersArray = [];
     let temp = {};
+
     for (const property in filters) {
-      if (filters[property]) filtersArray.push(`${property}`);
+      if (filters[property] && property !== "match")
+        filtersArray.push(`${property}`);
     }
     temp["types"] = filtersArray;
+    if (temp.types.length !== 0) {
+      temp["match"] = filters["match"];
+    }
+
     let query = queryString.stringify(temp);
-    window.location.replace(`/?${query}`);
+
+    window.location.replace(query ? `/?${query}` : `/`);
   };
 
   useEffect(() => {
@@ -77,15 +101,15 @@ const PokemonTypesFilterList = () => {
       filterList[filter] = true;
     });
 
-    setFilter({ ...filters, ...filterList });
+    setFilter({ ...filters, ...filterList, match });
   }, []);
 
   return (
     <Wrapper>
       {types.map((type, index) => {
         return (
-          <ListElement key={index}>
-            <Icon onClick={() => toggleFilter(type.name)}>
+          <ListElement key={index} onClick={() => toggleFilter(type.name)}>
+            <Icon>
               <TypesPokemonIcon
                 type={type.name}
                 classes={`${!filters[type.name] && "inactive"}`}
@@ -95,6 +119,17 @@ const PokemonTypesFilterList = () => {
           </ListElement>
         );
       })}
+      <FormControlLabel
+        className="checkbox"
+        control={
+          <Checkbox
+            checked={filters["match"]}
+            onChange={() => toggleFilter("match")}
+            name="match"
+          />
+        }
+        label="Types must match"
+      />
       <Button onClick={handleSubmit}>Search</Button>
     </Wrapper>
   );

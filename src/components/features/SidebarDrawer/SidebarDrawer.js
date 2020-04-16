@@ -2,7 +2,6 @@ import React from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import PropTypes from "prop-types";
 import { FaArrowLeft } from "react-icons/fa";
@@ -12,29 +11,29 @@ import { PokemonTypesFilterList } from "../../index";
 
 const useStyles = makeStyles({
   list: {
-    width: 320
+    width: 320,
   },
   title: {
     display: "flex",
     textAlign: "center",
     justifyContent: "center",
-    marginTop: 0
+    marginTop: 0,
   },
   fullList: {
-    width: "auto"
+    width: "auto",
   },
   wrapper: {
     display: "flex",
-    justifyContent: "flex-end",
-    padding: "15px"
+    justifyContent: "flex-start",
+    padding: "15px",
   },
   closeIcon: {
     fontSize: "1.7em",
     cursor: "pointer",
     "&:hover": {
-      opacity: "0.5"
-    }
-  }
+      opacity: "0.5",
+    },
+  },
 });
 
 const SidebarDrawer = ({ isOpenDrawer, setIsOpenDrawer }) => {
@@ -55,7 +54,7 @@ const SidebarDrawer = ({ isOpenDrawer, setIsOpenDrawer }) => {
   const list = anchor => (
     <div
       className={clsx(classes.list, {
-        [classes.fullList]: anchor === "top" || anchor === "bottom"
+        [classes.fullList]: anchor === "top" || anchor === "bottom",
       })}
       role="presentation"
       //onClick={toggleDrawer(anchor, false)}
@@ -91,7 +90,7 @@ const SidebarDrawer = ({ isOpenDrawer, setIsOpenDrawer }) => {
 
 SidebarDrawer.propTypes = {
   isOpenDrawer: PropTypes.bool,
-  setIsOpenDrawer: PropTypes.func
+  setIsOpenDrawer: PropTypes.func,
 };
 
 export default SidebarDrawer;
