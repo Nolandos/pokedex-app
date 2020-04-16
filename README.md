@@ -1,14 +1,14 @@
-# Mimushka - shop app
+# Pokedex App
 Pokemon library. Catch them all!
 
-#Notice
+# Notice
 - Library has a base of 807 pokemon
 - The application uses pokemon pictures from https://pokeres.bastionbot.org
 
 # Demo : 
 App was deployed on Firebase server:
 
-https://mimushka-shop.pl/
+https://pokedex-app-2e1c0.web.app/
 
 # Technologies :
 ![react](./files/react.png) ![redux](./files/redux.png)  ![hooks](./files/hooks.png)  ![styled components](./files/styled_components.png)
@@ -27,8 +27,8 @@ https://mimushka-shop.pl/
 ![photo_3](./files/screen_003.png)
 
 # Tasks :
-`npm install` or `yarn install` to install package
-`npm start` or `yarn start` to start project 
+-`npm install` or `yarn install` to install package
+-`npm start` or `yarn start` to start project 
 
 <b> ENJOY !</b>
 
