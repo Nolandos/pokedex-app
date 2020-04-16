@@ -68,6 +68,10 @@ const BackButton = styled.button`
   &:hover {
     opacity: 0.5;
   }
+  @media (max-width: 375px) {
+    top: -35px;
+    left: -30px;
+  }
 `;
 
 const useStyles = makeStyles(theme => ({
